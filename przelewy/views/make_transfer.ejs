@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function validate() {
+      var accountNumber = document.forms.transferForm.accountNumber;
+      var moneyAmount = document.forms.transferForm.moneyAmount;
+
+      if(accountNumber.value == "") { return; }
+      if(moneyAmount.value == "") { return; }
+
+      accountNumber.readOnly = true;
+      moneyAmount.readOnly = true;
+      document.forms.transferForm.comment.readOnly = true;
+      document.getElementById("sendBtn").disabled = true;
+      document.getElementById("confirmBtn").disabled = false;
+    }
+  </script>
+</head>
+<body>
+  <div>
+    <h1>New transfer</h1>
+  </div>
+  <div>
+    <form name="transferForm" method="post" action="" enctype="application/x-www-form-urlencoded">
+      <div>
+        <label for="accountNumber">Account number:</label>
+        <input type="text" name="accountNumber" id="accountNumber"></input>
+      </div>
+      <div>
+        <label for="moneyAmount">Gold amount:</label>
+        <input type="text" name="moneyAmount" id="moneyAmount"></input>
+      </div>
+      <div>
+        <label for="comment">Comment</label>
+        <input type="text" name="comment" id="comment"></input>
+      </div>
+      <div>
+        <button type="button" id="sendBtn" onClick="validate()">Send</button>
+        <input type="submit" id="confirmBtn" value="Confirm" disabled="">
+      </div>
+    </form>
+  </div>
+
+
+</body>
+</html>

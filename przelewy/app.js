@@ -10,9 +10,15 @@ var expressSession = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var user = require('./model/user');
 var transfer = require('./routes/transfer');
+var transaction = require('./model/transaction');
 var sessionsConfiguration = require('./configuration/sessions');
-var userController = require('./controllers/userController');
+var credentialsConfig = require('./configuration/credentials');
+
+var usersArr = {};
+
+var userController = require('./controllers/userController')(credentialsConfig, usersArr);
 var userAuthentication = require('./authentication/usersAuth')(userController);
 
 var app = express();
@@ -37,13 +43,31 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new passportLocal.Strategy(userAuthentication.strategy));
-passport.serializeUser(userAuthentication.serializer);
-passport.deserializeUser(userAuthentication.deserializer);
+passport.use(new passportLocal.Strategy(function(username, password, done) {
+  var usr = null;
+  var tmpUsr = userController.GetUserByLogin(username);
+  console.warn(tmpUsr);
+  if(tmpUsr !== undefined) {
+    console.warn('Hello World!');
+    if(userController.ComparePasswords(tmpUsr, password)) {
+      usr = tmpUsr;
+    }
+  }
+
+  done(null, usr);
+}));
+passport.serializeUser(function(user, done) {
+  done(null, user.login);
+});
+passport.deserializeUser(function(userLogin, done) {
+  done(null, userController.GetUserByLogin(userLogin));
+});
 
 app.use('/', index);
-app.use('/transfer', transfer());
-app.use('/users', users(passport, userController));
+app.use('/transfer', transfer(credentialsConfig, transaction, userController));
+app.use('/users', users(passport, userController, credentialsConfig));
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

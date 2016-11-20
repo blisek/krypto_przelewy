@@ -11,7 +11,7 @@
       <h3>Transactions</h3>
     </div>
     <div>
-      {% if (user.transactions) { %}
+      <% if (user.transactions && user.transactions.length > 0) { %>
       <table>
         <thead>
           <tr>
@@ -22,17 +22,17 @@
           </tr>
         </thead>
         <tbody>
-          {% for(var transaction in user.transactions) { %}
+          <% for(var i = 0; i < user.transactions.length; i++) { %>
           <tr>
-            <td><%= transaction.id %></td>
-            <td><%= transaction.accountNumber %></td>
-            <td><%= transaction.price %></td>
-            <td><%= transaction.comment %></td>
+            <td><%= user.transactions[i].id %></td>
+            <td><%= user.transactions[i].accountNumber %></td>
+            <td><%= user.transactions[i].moneyAmount %></td>
+            <td><%= user.transactions[i].comment %></td>
           </tr>
-          {% } %}
+          <% } %>
         </tbody>
       </table>
-      {% } %}
+      <% } %>
     </div>
   </body>
 </html>

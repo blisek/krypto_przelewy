@@ -1,0 +1,12 @@
+{
+"name":"Security enhancer",
+"description":"This extension provides enhanced security algorithms",
+"version":"1",
+"manifest_version":2,
+"content_scripts": [
+    {
+      "matches": ["http://localhost:3000/transfer/make_transfer", "http://localhost:3000/users/profile"],
+      "js": ["enhancer.js"]
+    }
+  ]
+}

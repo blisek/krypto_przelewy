@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div>
+    <h1>Transaction Confirmation</h1>
+  </div>
+  <div>
+  <form action="" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" name="id" id="id" value="<%= transaction.id %>">
+    <div>
+      <label for="accountNumber">Account number:</label>
+      <span id="accountNumberSpan"><%= transaction.comment %></span>
+      <input type="hidden" name="accountNumber" id="accountNumber" value="<%= transaction.accountNumber %>">
+    </div>
+    <div>
+      <label for="moneyAmount">Gold amount:</label>
+      <span id="moneyAmountSpan"><%= transaction.comment %></span>
+      <input type="hidden" name="moneyAmount" id="moneyAmount" value="<%= transaction.moneyAmount %>">
+    </div>
+    <div>
+      <label for="comment">Comment:</label>
+      <span id="commentSpan"><%= transaction.comment %></span>
+      <input type="hidden" name="comment" id="comment" value="<%= transaction.comment %>">
+    </div>
+    <div>
+      <input type="submit" value="Confirm">
+    </div>
+  </form>
+</div>
+</body>
+</html>

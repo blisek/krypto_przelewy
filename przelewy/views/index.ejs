@@ -11,7 +11,7 @@
     </div>
     <div>
       <% if(isAuthenticated) { %>
-        <p>Hello, <%= user.name %>!</p>
+        <p>Hello, <%= user.login %>!</p>
       <% } else { %>
         <a href="/users">Log in there</a>
       <% } %>

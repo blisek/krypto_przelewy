@@ -10,12 +10,5 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/login', function(req, res) {
-  res.render('login');
-});
-
-router.post('/login', function(req, res) {
-  res.send("post login");
-});
 
 module.exports = router;

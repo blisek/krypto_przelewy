@@ -1,11 +1,13 @@
+var debug = require('debug')('usersAuth');
 
 module.exports = function(userController) {
   return {
     strategy: function(username, password, done) {
       var usr = null;
-      if(username in registeredUsers) {
-        var tmpUsr = registeredUsers[username];
-        if(tmpUsr.pass === password) {
+      var tmpUsr = userController.GetUserByLogin(username);
+      if(tmpUsr !== undefined) {
+        debug('Hello World!');
+        if(userController.ComparePasswords(tmpUsr, password)) {
           usr = tmpUsr;
         }
       }
@@ -13,10 +15,10 @@ module.exports = function(userController) {
       done(null, usr);
     },
     serializer: function(user, done) {
-      done(null, user.login);
+      done(null, user);
     },
-    deserializer: function(userLogin, done) {
-      done(null, userController.GetUserByLogin(userLogin));
+    deserializer: function(user, done) {
+      done(null, user);
     }
   }
 };
