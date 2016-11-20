@@ -1,3 +1,4 @@
+const credentialsConfig = require('./configuration/credentials');
 
 function User(login, password) {
   this.login = login;
@@ -9,6 +10,11 @@ User.prototype.addTransaction = function(tr) {
   this.transactions.push(tr);
 };
 
+var toEncryptedForm = function(password) {
+
+};
+
 module.exports = {
-  User: User
-}
+  User: User,
+  toEncryptedForm: toEncryptedForm
+};

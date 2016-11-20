@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= user.login %>'s Profile</title>
+  </head>
+  <body>
+    <div>
+      <h1><%= user.login %>'s Profile</h1>
+    </div>
+    <div>
+      <h3>Transactions</h3>
+    </div>
+    <div>
+      {% if (user.transactions) { %}
+      <table>
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Account number</td>
+            <td>Money amount</td>
+            <td>Comments</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for(var transaction in user.transactions) { %}
+          <tr>
+            <td><%= transaction.id %></td>
+            <td><%= transaction.accountNumber %></td>
+            <td><%= transaction.price %></td>
+            <td><%= transaction.comment %></td>
+          </tr>
+          {% } %}
+        </tbody>
+      </table>
+      {% } %}
+    </div>
+  </body>
+</html>

@@ -12,7 +12,8 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var transfer = require('./routes/transfer');
 var sessionsConfiguration = require('./configuration/sessions');
-var userAuthentication = require('./authentication/usersAuth');
+var userController = require('./controllers/userController');
+var userAuthentication = require('./authentication/usersAuth')(userController);
 
 var app = express();
 
@@ -42,7 +43,7 @@ passport.deserializeUser(userAuthentication.deserializer);
 
 app.use('/', index);
 app.use('/transfer', transfer());
-app.use('/users', users(passport));
+app.use('/users', users(passport, userController));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
